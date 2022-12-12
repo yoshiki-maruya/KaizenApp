@@ -1,9 +1,6 @@
 import Head from 'next/head';
-import { useForm } from 'react-hook-form';
-import Kaizen from '../types/IKaizen';
 
 const Resister: React.FC = () => {
-  const form = useForm<Kaizen>();
   return (
     <div className='container'>
       <Head>

@@ -1,3 +1,4 @@
+import { useForm } from 'react-hook-form';
 import IKaizen from '../types/IKaizen';
 
 type IFormProps = {
@@ -7,6 +8,7 @@ type IFormProps = {
 const Form: React.FC<IFormProps> = ({
   formState
 }) => {
+  const form = useForm<IKaizen>();
   return (
     <form action="/send-data-here" method="post" className='flex flex-col'>
       <label className='ml-5'>Problem</label>
