@@ -1,10 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import IKaizen from '../../types/IKaizen';
+import axios from "axios";
 
 const prisma = new PrismaClient();
 
-const createKaizen = (req: NextApiRequest, res: NextApiResponse) => {
-  res.status(200).json(console.log("hello"));
+async function createKaizen(item: IKaizen): Promise<IKaizen> {
+  return axios
+    .post<IKaizen>(
+      'api/createKaizen',
+      item,
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    .then((response) => response.data);
 }
 
 export default createKaizen;
