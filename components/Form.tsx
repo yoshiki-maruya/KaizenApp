@@ -8,7 +8,7 @@ type IFormProps = {
 const Form: React.FC<IFormProps> = ({
   formState
 }) => {
-  const form = useForm<IKaizen>();
+  const form = useForm<IKaizen>({ defaultValues: formState });
   return (
     <form action="/send-data-here" method="post" className='flex flex-col'>
       <label className='ml-5'>Problem</label>

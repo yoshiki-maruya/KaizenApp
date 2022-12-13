@@ -5,19 +5,14 @@ import axios from "axios";
 
 const prisma = new PrismaClient();
 
-async function createKaizen(item: IKaizen): Promise<IKaizen> {
-  return axios
-    .post<IKaizen>(
-      'api/createKaizen',
-      item,
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-    .then((response) => response.data);
+async function createKaizen (req: NextApiRequest, res: NextApiResponse) {
+  const kaizenData = JSON.parse(req.body);
+
+  const saveKaizen = await prisma.kaizen.create({
+    data: kaizenData,
+  })
+
+  res.json(saveKaizen);
 }
 
 export default createKaizen;
