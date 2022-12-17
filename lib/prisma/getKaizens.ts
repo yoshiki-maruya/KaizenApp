@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export async function getKaizens() {
   try {
     const kaizenFromDB = await prisma.kaizen.findMany();
-    return { kaizen: kaizenFromDB }
+    return { kaizens: kaizenFromDB }
   } catch (error) {
     return { error }
   }
