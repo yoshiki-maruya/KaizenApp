@@ -1,7 +1,22 @@
+import { PrismaClient } from '@prisma/client';
+import { GetStaticProps } from 'next';
 import Head from 'next/head'
 import Link from 'next/link'
+import React from 'react';
+import { getKaizens } from '../lib/prisma/getKaizens';
+import IKaizen from '../types/IKaizen';
 
-const Home: React.FC = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const prisma = new PrismaClient();
+  const feed = await prisma.kaizen.findMany();
+  return { props: { feed } };
+};
+
+type Props = {
+  feed: IKaizen[];
+}
+
+const Home: React.FC<Props> = (props) => {
   return (
     <div className='container'>
       <Head>
@@ -17,6 +32,15 @@ const Home: React.FC = () => {
       <li className='mt-8 list-none text-center text-2xl'>
         <Link href="/Resister">Resister</Link>
       </li>
+      <div className='mt-8 text-center text-2xl'>
+        <ul>
+          {
+            props.feed.map((kaizen) => (
+              <li key={kaizen.id}>{kaizen.title}</li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   )
 }
